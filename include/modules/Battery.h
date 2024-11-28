@@ -12,6 +12,7 @@ namespace DroneTool
         [[nodiscard]] std::string name() const override { return "Battery"; }
         [[nodiscard]] std::string print_state() const override { return std::format("{:.3f}%", m_charge); }
 
+        [[nodiscard]] double get_charge_percentage() const { return m_charge; }
         void update(double time_step, class Drone& drone) override;
 
     private:

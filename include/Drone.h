@@ -1,6 +1,7 @@
 #ifndef DRONE_H
 #define DRONE_H
 #include <tuple>
+#include <vector>
 
 namespace DroneTool
 {
@@ -22,7 +23,7 @@ namespace DroneTool
         [[nodiscard]] Vector3 rotation() const { return m_rotation; }
         [[nodiscard]] Vector3 angular_velocity() const { return m_angular_velocity; }
 
-        [[nodiscard]] Vector4 rotor_rates() const { return m_rotor_rates; }
+        [[nodiscard]] virtual std::vector<class Module*> modules() const = 0;
 
     protected:
         Vector3 m_position;

@@ -17,6 +17,8 @@ namespace DroneTool
         void initialize(double area_width, double area_depth);
         void update(float delta_time);
 
+        [[nodiscard]] class Drone* drone() const { return m_drone; }
+
         void transmit_data(PacketCommand command, const std::vector<uint8_t>& data);
         std::optional<std::pair<PacketCommand, std::vector<uint8_t>>> receive_data();
 
