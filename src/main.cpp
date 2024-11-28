@@ -8,12 +8,14 @@
 #include <imgui-SFML.h>
 #include <implot.h>
 
+#include "SlidingBuffer.h"
+
 int main()
 {
     DroneTool::Simulation simulation(new DroneTool::SimpleDrone{});
     simulation.initialize(100, 100);
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Drone Sim");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Drone Sim");
     window.setFramerateLimit(120);
 
     ImGui::SFML::Init(window);
@@ -21,10 +23,14 @@ int main()
 
     sf::Clock clock;
 
-    float xs[1000], ys[1000], zs[1000];
-    memset(xs, 0, 1000 * sizeof(float));
-    memset(ys, 0, 1000 * sizeof(float));
-    memset(zs, 0, 1000 * sizeof(float));
+    DroneTool::SlidingBuffer<float, 100> plot_x_values{};
+    plot_x_values.clear(0);
+
+    DroneTool::SlidingBuffer<float, 100> plot_y_values{};
+    plot_y_values.clear(0);
+
+    DroneTool::SlidingBuffer<float, 100> plot_z_values{};
+    plot_z_values.clear(0);
 
     while (window.isOpen())
     {
@@ -44,22 +50,17 @@ int main()
         simulation.update(delta_time.asSeconds());
         ImGui::SFML::Update(window, delta_time);
 
-        for (int i = 1; i < 1000; i++)
-        {
-            xs[i-1] = xs[i];
-        }
-
         const auto [x, y, z] = simulation.drone()->position();
-        xs[999] = static_cast<float>(x);
-        ys[999] = static_cast<float>(y);
-        zs[999] = static_cast<float>(z);
+        plot_x_values.update(x);
+        plot_y_values.update(y);
+        plot_z_values.update(z);
 
         ImGui::Begin("Positional Data");
         if (ImPlot::BeginPlot("Position"))
         {
-            ImPlot::PlotLine("X Position", xs, 1000);
-            ImPlot::PlotLine("Y Position", ys, 1000);
-            ImPlot::PlotLine("Z Position", zs, 1000);
+            ImPlot::PlotLine("X Position", plot_x_values.data(), plot_x_values.size());
+            ImPlot::PlotLine("Y Position", plot_y_values.data(), plot_y_values.size());
+            ImPlot::PlotLine("Z Position", plot_z_values.data(), plot_z_values.size());
             ImPlot::EndPlot();
         }
         ImGui::End();

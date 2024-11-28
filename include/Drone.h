@@ -23,6 +23,9 @@ namespace DroneTool
         [[nodiscard]] Vector3 rotation() const { return m_rotation; }
         [[nodiscard]] Vector3 angular_velocity() const { return m_angular_velocity; }
 
+        void set_position(const Vector3& position) { m_position = position; }
+        void set_rotation(const Vector3& rotation) { m_rotation = rotation; }
+
         [[nodiscard]] virtual std::vector<class Module*> modules() const = 0;
 
     protected:

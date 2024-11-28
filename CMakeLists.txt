@@ -19,7 +19,8 @@ set(HEADERS include/Simulation.h
         include/modules/Module.h
         include/modules/Rotor.h
         include/Distribution.h
-        include/drones/SimpleDrone.h)
+        include/drones/SimpleDrone.h
+        include/SlidingBuffer.h)
 
 find_package(Bullet CONFIG REQUIRED)
 find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
