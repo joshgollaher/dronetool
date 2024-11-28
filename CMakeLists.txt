@@ -5,11 +5,15 @@ set(CMAKE_CXX_STANDARD 23)
 
 set(SOURCES src/main.cpp
         src/Simulation.cpp
-        src/Packet.cpp)
+        src/Packet.cpp
+        src/modules/Battery.cpp)
 set(HEADERS include/Simulation.h
         include/Packet.h
         include/Drone.h
-        include/DroneLink.cpp)
+        include/DroneLink.h
+        include/KalmanFilter.h
+        include/modules/Battery.h
+        include/modules/Module.h)
 
 find_package(Bullet CONFIG REQUIRED)
 
