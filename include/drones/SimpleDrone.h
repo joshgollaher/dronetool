@@ -13,19 +13,24 @@ namespace DroneTool
     public:
 
         SimpleDrone();
-        ~SimpleDrone();
+        ~SimpleDrone() override;
 
         void setup() override;
         void update() override;
 
         [[nodiscard]] std::vector<class Module*> modules() const override
         {
-            return {};
+            return m_modules;
         }
 
     private:
         Battery* m_battery;
-        std::tuple<Rotor, Rotor, Rotor, Rotor>* m_rotors{};
+        Rotor* m_rotor_1;
+        Rotor* m_rotor_2;
+        Rotor* m_rotor_3;
+        Rotor* m_rotor_4;
+
+        std::vector<class Module*> m_modules;
     };
 }
 
