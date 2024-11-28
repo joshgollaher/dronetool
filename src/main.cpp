@@ -6,6 +6,7 @@
 
 #include <imgui.h>
 #include <imgui-SFML.h>
+#include <implot.h>
 
 int main()
 {
@@ -14,9 +15,16 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Drone Sim");
     window.setFramerateLimit(120);
+
     ImGui::SFML::Init(window);
+    ImPlot::CreateContext();
 
     sf::Clock clock;
+
+    float xs[1000], ys[1000], zs[1000];
+    memset(xs, 0, 1000 * sizeof(float));
+    memset(ys, 0, 1000 * sizeof(float));
+    memset(zs, 0, 1000 * sizeof(float));
 
     while (window.isOpen())
     {
@@ -36,7 +44,25 @@ int main()
         simulation.update(delta_time.asSeconds());
         ImGui::SFML::Update(window, delta_time);
 
-        // TODO: Add components...
+        for (int i = 1; i < 1000; i++)
+        {
+            xs[i-1] = xs[i];
+        }
+
+        const auto [x, y, z] = simulation.drone()->position();
+        xs[999] = static_cast<float>(x);
+        ys[999] = static_cast<float>(y);
+        zs[999] = static_cast<float>(z);
+
+        ImGui::Begin("Positional Data");
+        if (ImPlot::BeginPlot("Position"))
+        {
+            ImPlot::PlotLine("X Position", xs, 1000);
+            ImPlot::PlotLine("Y Position", ys, 1000);
+            ImPlot::PlotLine("Z Position", zs, 1000);
+            ImPlot::EndPlot();
+        }
+        ImGui::End();
 
         ImGui::SFML::Render(window);
         window.display();

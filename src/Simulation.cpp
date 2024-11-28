@@ -18,7 +18,7 @@ namespace DroneTool
         delete m_drone;
     }
 
-    void Simulation::initialize(double area_width, double area_depth)
+    void Simulation::initialize(const double area_width, const double area_depth)
     {
         m_area_width = area_width;
         m_area_depth = area_depth;
@@ -38,9 +38,10 @@ namespace DroneTool
         m_drone->setup();
     }
 
-    void Simulation::update(float delta_time)
+    void Simulation::update(const float delta_time)
     {
         m_bullet_world->stepSimulation(delta_time, 10);
+        // TODO: Update drone position and rotation from Bullet
         m_drone->update();
     }
 
@@ -50,6 +51,7 @@ namespace DroneTool
 
     std::optional<std::pair<PacketCommand, std::vector<uint8_t>>> Simulation::receive_data()
     {
+        // Will use this in the future to mimic data reception. Empty for now...
         return {};
     }
 

@@ -25,6 +25,7 @@ find_package(Bullet CONFIG REQUIRED)
 find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 find_package(ImGui-SFML CONFIG REQUIRED)
+find_package(implot CONFIG REQUIRED)
 
 add_executable(drone_tool ${SOURCES} ${HEADERS})
 
@@ -34,5 +35,4 @@ target_link_libraries(drone_tool PRIVATE ${BULLET_LIBRARIES})
 target_link_libraries(drone_tool PRIVATE sfml-system sfml-graphics sfml-window)
 target_link_libraries(drone_tool PRIVATE imgui::imgui)
 target_link_libraries(drone_tool PRIVATE ImGui-SFML::ImGui-SFML)
-
-
+target_link_libraries(drone_tool PRIVATE implot::implot)
