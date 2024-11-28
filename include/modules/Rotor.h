@@ -12,17 +12,20 @@ namespace DroneTool
     {
     public:
 
-        Rotor(const double max_rpm, Distribution rpm_thrust_curve) : m_rpm_thrust_curve(std::move(rpm_thrust_curve)), m_max_rpm(max_rpm), m_current_rpm(0) {}
+        Rotor(const double max_rpm, Distribution rpm_thrust_curve, Distribution rpm_power_draw_curve) : m_rpm_thrust_curve(std::move(rpm_thrust_curve)), m_max_rpm(max_rpm), m_current_rpm(0), m_rpm_power_draw_curve(std::move(rpm_power_draw_curve)) {}
 
         [[nodiscard]] std::string name() const override { return "Rotor"; }
         [[nodiscard]] std::string print_state() const override;
 
         void set_input(double duty_cycle); // [0.0, 1.0]
 
-        void update(double time_step, Drone& drone) override;  // FIXME: We do NOT model rotor inertia! This is wrong!
+        [[nodiscard]] double get_thrust() const;
+
+        [[nodiscard]] double get_power_draw() const;
 
     private:
         Distribution m_rpm_thrust_curve;
+        Distribution m_rpm_power_draw_curve;
         double m_max_rpm;
         double m_current_rpm;
     };

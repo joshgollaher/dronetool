@@ -8,8 +8,8 @@ namespace DroneTool
     {
     public:
 
-        Distribution(double from, double to, std::vector<double> ys);
-        double sample(double x) const;  // Linearly interpolate from corresponding ys
+        Distribution(const double from, const double to, std::vector<double> ys) : m_from(from), m_to(to), m_ys(std::move(ys)) {}
+        [[nodiscard]] double sample(double x) const;  // Linearly interpolate from corresponding ys
 
     private:
         double m_from;
