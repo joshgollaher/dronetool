@@ -8,7 +8,8 @@ set(SOURCES src/main.cpp
         src/Packet.cpp
         src/modules/Battery.cpp
         src/modules/Rotor.cpp
-        src/Distribution.cpp)
+        src/Distribution.cpp
+        src/drones/SimpleDrone.cpp)
 set(HEADERS include/Simulation.h
         include/Packet.h
         include/Drone.h
@@ -17,7 +18,8 @@ set(HEADERS include/Simulation.h
         include/modules/Battery.h
         include/modules/Module.h
         include/modules/Rotor.h
-        include/Distribution.h)
+        include/Distribution.h
+        include/drones/SimpleDrone.h)
 
 find_package(Bullet CONFIG REQUIRED)
 
