@@ -7,7 +7,9 @@ set(SOURCES src/main.cpp
         src/Simulation.cpp
         src/Packet.cpp)
 set(HEADERS include/Simulation.h
-        include/Packet.h)
+        include/Packet.h
+        include/Drone.h
+        include/DroneLink.cpp)
 
 find_package(Bullet CONFIG REQUIRED)
 

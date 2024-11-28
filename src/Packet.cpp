@@ -6,6 +6,9 @@ namespace DroneTool
     {
         std::vector<uint8_t> packet;
 
+        // Packet magic number
+        packet.push_back(0xAA);
+
         // ReSharper disable once CppRedundantCastExpression
         packet.push_back(static_cast<uint8_t>(command));
 

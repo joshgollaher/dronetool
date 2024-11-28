@@ -1,5 +1,4 @@
 #include <iostream>
-#include <btBulletDynamicsCommon.h>
 
 #include <Simulation.h>
 

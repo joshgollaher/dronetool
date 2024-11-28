@@ -6,11 +6,11 @@
 
 namespace DroneTool
 {
-    // Packet: [PacketCommand: u8, Length: u16, data: Length, Cumulative XOR: u8]
+    // Packet: [0xAA Marker, PacketCommand: u8, Length: u16, data: Length, Cumulative XOR: u8]
     enum PacketCommand : uint8_t
     {
         FLY_HOME = 0,
-        MOVE,
+        LATERAL_MOVE,
         POWER,
         LAND,
         STOP
