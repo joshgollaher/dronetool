@@ -32,7 +32,6 @@ namespace DroneTool
         Vector3 m_angular_velocity;
 
         Vector4 m_rotor_rates;
-
     };
 }
 
