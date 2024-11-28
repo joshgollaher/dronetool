@@ -22,12 +22,17 @@ set(HEADERS include/Simulation.h
         include/drones/SimpleDrone.h)
 
 find_package(Bullet CONFIG REQUIRED)
+find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
+find_package(ImGui-SFML CONFIG REQUIRED)
 
 add_executable(drone_tool ${SOURCES} ${HEADERS})
 
-target_include_directories(drone_tool PUBLIC ${BULLET_INCLUDE_DIRS})
 target_include_directories(drone_tool PRIVATE include)
 
-target_link_libraries(drone_tool PUBLIC ${BULLET_LIBRARIES})
+target_link_libraries(drone_tool PRIVATE ${BULLET_LIBRARIES})
+target_link_libraries(drone_tool PRIVATE sfml-system sfml-graphics sfml-window)
+target_link_libraries(drone_tool PRIVATE imgui::imgui)
+target_link_libraries(drone_tool PRIVATE ImGui-SFML::ImGui-SFML)
 
 

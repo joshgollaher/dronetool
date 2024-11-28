@@ -10,6 +10,7 @@ namespace DroneTool
 
     Simulation::~Simulation()
     {
+        // FIXME: Step through m_bullet_world and delete all attached rigidbodies
         delete m_bullet_collision_config;
         delete m_bullet_broadphase;
         delete m_bullet_collision_dispatcher;
@@ -40,6 +41,7 @@ namespace DroneTool
     void Simulation::update(float delta_time)
     {
         m_bullet_world->stepSimulation(delta_time, 10);
+        m_drone->update();
     }
 
     void Simulation::transmit_data(PacketCommand command, const std::vector<uint8_t>& data)
