@@ -1,4 +1,6 @@
+#include <BulletCollision/CollisionShapes/btBoxShape.h>
 #include <drones/SimpleDrone.h>
+#include <LinearMath/btDefaultMotionState.h>
 
 namespace DroneTool
 {
@@ -48,5 +50,22 @@ namespace DroneTool
 
     void SimpleDrone::update()
     {
+    }
+
+    void SimpleDrone::setup_bullet_rigid_body()
+    {
+        // Spawn at origin
+        // 1.25ft = 0.381m
+        // 0.75ft = 0.24384
+        const btVector3 half_extents(0.381 / 2, 0.24384 / 2, 0.381 / 2);
+        btCollisionShape* box_shape = new btBoxShape(half_extents);
+
+        btVector3 local_inertia(0, 0, 0);
+        box_shape->calculateLocalInertia(m_mass_kg, local_inertia);
+
+        auto* motion_state = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, half_extents.y(), 0)));
+
+        btRigidBody::btRigidBodyConstructionInfo construction_info(m_mass_kg, motion_state, box_shape, local_inertia);
+        m_bullet_rigid_body = new btRigidBody(construction_info);
     }
 }

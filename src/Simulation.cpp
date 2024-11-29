@@ -35,13 +35,21 @@ namespace DroneTool
         // Create play-area
         build_environment();
 
+        m_bullet_world->addRigidBody(m_drone->bullet_body());
+
         m_drone->setup();
     }
 
     void Simulation::update(const float delta_time)
     {
         m_bullet_world->stepSimulation(delta_time, 10);
-        // TODO: Update drone position and rotation from Bullet
+
+        btTransform drone_transform;
+        m_drone->bullet_body()->getMotionState()->getWorldTransform(drone_transform);
+        const auto pos = drone_transform.getOrigin();
+
+        m_drone->set_position(std::make_tuple(pos.x(), pos.y(), pos.z()));
+
         m_drone->update();
     }
 

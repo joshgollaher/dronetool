@@ -16,7 +16,7 @@ int main()
     simulation.initialize(100, 100);
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Drone Sim");
-    window.setFramerateLimit(120);
+    window.setFramerateLimit(60);
 
     ImGui::SFML::Init(window);
     ImPlot::CreateContext();

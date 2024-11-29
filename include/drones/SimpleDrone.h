@@ -23,7 +23,13 @@ namespace DroneTool
             return m_modules;
         }
 
+    protected:
+        void setup_bullet_rigid_body() override;
+
     private:
+
+        const double m_mass_kg = 0.8;
+
         Battery* m_battery;
         Rotor* m_rotor_1;
         Rotor* m_rotor_2;
