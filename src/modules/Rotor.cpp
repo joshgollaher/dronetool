@@ -5,7 +5,7 @@ namespace DroneTool
 {
     std::string Rotor::print_state() const
     {
-        return std::format("RPM: {}/{}, F={:.2f}N", m_current_rpm, m_max_rpm, m_rpm_thrust_curve.sample(m_current_rpm));
+        return std::format("RPM: {}/{}, F={:.2f}N, Duty={:.2f}%", m_current_rpm, m_max_rpm, m_rpm_thrust_curve.sample(m_current_rpm), duty_cycle() * 100);
     }
 
     void Rotor::set_input(const double duty_cycle)
@@ -21,5 +21,10 @@ namespace DroneTool
     double Rotor::get_power_draw() const
     {
         return m_rpm_power_draw_curve.sample(m_current_rpm);
+    }
+
+    void Rotor::imgui_tools()
+    {
+
     }
 }

@@ -25,6 +25,8 @@ namespace DroneTool
 
         [[nodiscard]] double get_power_draw() const;
 
+        void imgui_tools() override;
+
     private:
         Distribution m_rpm_thrust_curve;
         Distribution m_rpm_power_draw_curve;

@@ -73,6 +73,17 @@ int main()
         }
         ImGui::End();
 
+        ImGui::Begin("Drone Modules");
+
+        for (auto* module : simulation.drone()->modules())
+        {
+            ImGui::Text(std::format("{}: {}", module->name(), module->print_state()).c_str());
+            module->imgui_tools();
+            ImGui::Separator();
+        }
+
+        ImGui::End();
+
         ImGui::SFML::Render(window);
         window.display();
     }
