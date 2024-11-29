@@ -19,6 +19,8 @@ namespace DroneTool
 
         void set_input(double duty_cycle); // [0.0, 1.0]
 
+        [[nodiscard]] double duty_cycle() const { return m_current_rpm / m_max_rpm; }
+
         [[nodiscard]] double get_thrust() const;
 
         [[nodiscard]] double get_power_draw() const;

@@ -16,7 +16,7 @@ namespace DroneTool
         virtual ~Drone() = default;
 
         virtual void setup() = 0;
-        virtual void update() = 0;
+        virtual void update(float delta_time) = 0;
 
         [[nodiscard]] Vector3 position() const { return m_position; }
         [[nodiscard]] Vector3 velocity() const { return m_velocity; }

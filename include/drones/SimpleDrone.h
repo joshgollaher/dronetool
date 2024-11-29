@@ -16,7 +16,7 @@ namespace DroneTool
         ~SimpleDrone() override;
 
         void setup() override;
-        void update() override;
+        void update(float delta_time) override;
 
         [[nodiscard]] std::vector<class Module*> modules() const override
         {
@@ -35,6 +35,11 @@ namespace DroneTool
         Rotor* m_rotor_2;
         Rotor* m_rotor_3;
         Rotor* m_rotor_4;
+
+        btVector3 m_rotor_1_pos;
+        btVector3 m_rotor_2_pos;
+        btVector3 m_rotor_3_pos;
+        btVector3 m_rotor_4_pos;
 
         std::vector<class Module*> m_modules;
     };

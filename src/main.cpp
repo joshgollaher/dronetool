@@ -59,7 +59,15 @@ int main()
         if (ImPlot::BeginPlot("Position"))
         {
             ImPlot::PlotLine("X Position", plot_x_values.data(), plot_x_values.size());
+            ImPlot::EndPlot();
+        }
+        if (ImPlot::BeginPlot("Y Position"))
+        {
             ImPlot::PlotLine("Y Position", plot_y_values.data(), plot_y_values.size());
+            ImPlot::EndPlot();
+        }
+        if (ImPlot::BeginPlot("Z Position"))
+        {
             ImPlot::PlotLine("Z Position", plot_z_values.data(), plot_z_values.size());
             ImPlot::EndPlot();
         }

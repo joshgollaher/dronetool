@@ -50,7 +50,7 @@ namespace DroneTool
 
         m_drone->set_position(std::make_tuple(pos.x(), pos.y(), pos.z()));
 
-        m_drone->update();
+        m_drone->update(delta_time);
     }
 
     void Simulation::transmit_data(PacketCommand command, const std::vector<uint8_t>& data)

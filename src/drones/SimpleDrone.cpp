@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 #include <drones/SimpleDrone.h>
 #include <LinearMath/btDefaultMotionState.h>
@@ -48,8 +49,20 @@ namespace DroneTool
     {
     }
 
-    void SimpleDrone::update()
+    void SimpleDrone::update(float delta_time)
     {
+        // Apply force from rotors
+        btTransform transform;
+        m_bullet_rigid_body->getMotionState()->getWorldTransform(transform);
+
+        const btVector3 local_up(0, 1, 0);
+        const btVector3 world_up = transform.getBasis() * local_up;
+
+        // This might not be right, it might be relative positioning instead
+        m_bullet_rigid_body->applyForce(world_up * m_rotor_1->get_thrust(), transform * m_rotor_1_pos - m_bullet_rigid_body->getCenterOfMassPosition());
+        m_bullet_rigid_body->applyForce(world_up * m_rotor_2->get_thrust(), transform * m_rotor_2_pos - m_bullet_rigid_body->getCenterOfMassPosition());
+        m_bullet_rigid_body->applyForce(world_up * m_rotor_3->get_thrust(), transform * m_rotor_3_pos - m_bullet_rigid_body->getCenterOfMassPosition());
+        m_bullet_rigid_body->applyForce(world_up * m_rotor_4->get_thrust(), transform * m_rotor_4_pos - m_bullet_rigid_body->getCenterOfMassPosition());
     }
 
     void SimpleDrone::setup_bullet_rigid_body()
@@ -65,7 +78,12 @@ namespace DroneTool
 
         auto* motion_state = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, half_extents.y(), 0)));
 
-        btRigidBody::btRigidBodyConstructionInfo construction_info(m_mass_kg, motion_state, box_shape, local_inertia);
+        const btRigidBody::btRigidBodyConstructionInfo construction_info(m_mass_kg, motion_state, box_shape, local_inertia);
         m_bullet_rigid_body = new btRigidBody(construction_info);
+
+        m_rotor_1_pos = btVector3( 0.381 / 2,  0.24384 / 2,  0.381 / 2); // Top-right-front
+        m_rotor_2_pos = btVector3(-0.381 / 2,  0.24384 / 2,  0.381 / 2); // Top-left-front
+        m_rotor_3_pos = btVector3( 0.381 / 2,  0.24384 / 2, -0.381 / 2); // Top-right-back
+        m_rotor_4_pos = btVector3(-0.381 / 2,  0.24384 / 2, -0.381 / 2); // Top-left-back
     }
 }
