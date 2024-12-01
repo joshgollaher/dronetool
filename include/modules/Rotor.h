@@ -28,10 +28,16 @@ namespace DroneTool
         void imgui_tools() override;
 
     private:
+
+        void add_percent_duty_cycle(double amt);
+
         Distribution m_rpm_thrust_curve;
         Distribution m_rpm_power_draw_curve;
         double m_max_rpm;
         double m_current_rpm;
+
+        static int _rotor_counts;
+        int m_rotor_id = _rotor_counts++;
     };
 }
 
