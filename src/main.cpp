@@ -84,6 +84,15 @@ int main()
 
         ImGui::End();
 
+        ImGui::Begin("Debug");
+
+        if (ImGui::Button("Dump world"))
+        {
+            simulation.export_world("simulation.bullet");
+        }
+
+        ImGui::End();
+
         ImGui::SFML::Render(window);
         window.display();
     }

@@ -22,6 +22,8 @@ namespace DroneTool
         void transmit_data(PacketCommand command, const std::vector<uint8_t>& data);
         std::optional<std::pair<PacketCommand, std::vector<uint8_t>>> receive_data();
 
+        void export_world(const std::string& file_name) const;
+
     private:
         void build_environment() const;
 

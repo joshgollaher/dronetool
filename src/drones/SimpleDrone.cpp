@@ -22,7 +22,8 @@ namespace DroneTool
         m_battery = new Battery(3150);
 
         constexpr double max_rotor_rpm = 14000;
-        const Distribution rpm_thrust_curve(0, max_rotor_rpm, generate_rpm_thrust_curve(max_rotor_rpm, 100));
+//        const Distribution rpm_thrust_curve(0, max_rotor_rpm, generate_rpm_thrust_curve(max_rotor_rpm, 100));
+        const Distribution rpm_thrust_curve(0, max_rotor_rpm, {0, 10});
         const Distribution rpm_power_draw_curve(0, max_rotor_rpm, {0, 45}); // Linear curve for now
         m_rotor_1 = new Rotor(max_rotor_rpm, rpm_thrust_curve, rpm_power_draw_curve);
         m_rotor_2 = new Rotor(max_rotor_rpm, rpm_thrust_curve, rpm_power_draw_curve);
@@ -58,7 +59,6 @@ namespace DroneTool
         const btVector3 local_up(0, 1, 0);
         const btVector3 world_up = transform.getBasis() * local_up;
 
-        // This might not be right, it might be relative positioning instead
         m_bullet_rigid_body->applyForce(world_up * m_rotor_1->get_thrust(), transform * m_rotor_1_pos - m_bullet_rigid_body->getCenterOfMassPosition());
         m_bullet_rigid_body->applyForce(world_up * m_rotor_2->get_thrust(), transform * m_rotor_2_pos - m_bullet_rigid_body->getCenterOfMassPosition());
         m_bullet_rigid_body->applyForce(world_up * m_rotor_3->get_thrust(), transform * m_rotor_3_pos - m_bullet_rigid_body->getCenterOfMassPosition());
@@ -69,7 +69,7 @@ namespace DroneTool
     {
         // Spawn at origin
         // 1.25ft = 0.381m
-        // 0.75ft = 0.24384
+        // 0.75ft = 0.24384m
         const btVector3 half_extents(0.381 / 2, 0.24384 / 2, 0.381 / 2);
         btCollisionShape* box_shape = new btBoxShape(half_extents);
 

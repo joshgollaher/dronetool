@@ -1,5 +1,6 @@
 #include <Simulation.h>
 #include <Drone.h>
+#include <fstream>
 
 namespace DroneTool
 {
@@ -63,8 +64,21 @@ namespace DroneTool
         return {};
     }
 
+    void Simulation::export_world(const std::string& file_name) const
+    {
+        btDefaultSerializer* serializer = new btDefaultSerializer;
+        m_bullet_world->serialize(serializer);
+
+        std::ofstream os(file_name, std::ios::binary);
+        os.write(reinterpret_cast<const char*>(serializer->getBufferPointer()), serializer->getCurrentBufferSize());
+        os.close();
+        delete serializer;
+    }
+
     void Simulation::build_environment() const
     {
+        // TODO: this causes a memory leak, clean these up
+
         // Ground plane at y = 0
         btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0); // Plane facing up
         auto groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));

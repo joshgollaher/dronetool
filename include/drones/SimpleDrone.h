@@ -28,7 +28,7 @@ namespace DroneTool
 
     private:
 
-        const double m_mass_kg = 0.8;
+        const double m_mass_kg = 1.4;
 
         Battery* m_battery;
         Rotor* m_rotor_1;
